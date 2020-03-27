@@ -85,6 +85,16 @@ PRODUCT_COPY_FILES += \
     vendor/havoc/config/permissions/privapp-permissions-havoc-product.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/privapp-permissions-havoc.xml \
     vendor/havoc/config/permissions/privapp-permissions-havoc-system.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-havoc.xml
 
+# Face Unlock
+TARGET_FACE_UNLOCK_SUPPORTED := false
+ifneq ($(TARGET_DISABLE_ALTERNATIVE_FACE_UNLOCK), true)
+PRODUCT_PACKAGES += \
+    FaceUnlockService
+TARGET_FACE_UNLOCK_SUPPORTED := true
+endif
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
+    ro.face.moto_unlock_service=$(TARGET_FACE_UNLOCK_SUPPORTED)
+
 # Hidden API whitelist
 PRODUCT_COPY_FILES += \
     vendor/havoc/config/permissions/havoc-hiddenapi-package-whitelist.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/havoc-hiddenapi-package-whitelist.xml
